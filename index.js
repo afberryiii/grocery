@@ -26,15 +26,20 @@ const inventory = [
  * @param {Item[]} items - array of items
  */
 function logNames(items) {
-  // TODO: use `forEach`
+  items.forEach((groceryItem) => {
+    console.log(groceryItem.name);
+  });
 }
 
 /**
  * @param {Item[]} items - array of items
  * @returns {string[]} an array of item names in all uppercase
  */
-function getUppercaseNames(items) {
-  // TODO: use `map`
+function getUpperCaseNames(items) {
+  const getUpperCaseNames = items.map((groceryItem) =>
+    groceryItem.name.toUpperCase()
+  );
+  return getUpperCaseNames;
 }
 
 /**
@@ -43,7 +48,8 @@ function getUppercaseNames(items) {
  * @returns {Item} - the item in `items` with the given `id`
  */
 function getItemById(items, id) {
-  // TODO: use `find`
+  const retrievedItem = items.find((groceryItem) => groceryItem.id === id);
+  return retrievedItem;
 }
 
 /**
@@ -51,17 +57,20 @@ function getItemById(items, id) {
  * @param {string} name - name of the item to find
  * @returns {number} the price of the item named `name` if found
  */
-function getItemPriceByName(items, name) {
-  // TODO: use a loop!
+function getItemPriceByName(items, groceryName) {
+  for (const item of items) {
+    if (item.name === groceryName) {
+      return item.price;
+    }
+  }
 }
-
 /**
  * @param {Item[]} items - array of items
  * @param {string} category
  * @returns {Item[]} array of items that belong to the given `category`
  */
 function getItemsByCategory(items, category) {
-  // TODO: use `filter`
+  return items.filter((groceryItem) => groceryItem.category === category);
 }
 
 /**
@@ -69,7 +78,11 @@ function getItemsByCategory(items, category) {
  * @returns {number} the total quantity of all items
  */
 function countItems(items) {
-  // TODO: use `reduce`
+  const totalQuantity = items.reduce(
+    (totalQuantity, currentItem) => (totalQuantity += currentItem.quantity),
+    0
+  );
+  return totalQuantity;
 }
 
 /**
@@ -77,7 +90,12 @@ function countItems(items) {
  * @returns {number} the cost of all given items
  */
 function getTotalPrice(items) {
-  // TODO: use `reduce`
+  const totalPrice = items.reduce(
+    (totalValue, currentItem) =>
+      totalValue + currentItem.quantity * currentItem.price,
+    0
+  );
+  return totalPrice;
 }
 
 // === READ BUT DO NOT CHANGE THE CODE BELOW ===
@@ -86,7 +104,7 @@ console.log("Welcome! We carry the following items:");
 logNames(inventory);
 
 console.log("Here are the names again in all uppercase:");
-console.log(getUppercaseNames(inventory));
+console.log(getUpperCaseNames(inventory));
 
 console.log(`In total, we have ${countItems(inventory)} items in stock.`);
 
